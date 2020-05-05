@@ -8,7 +8,6 @@ var $noteList = $(".list-container .list-group");
 // activeNote is used to keep track of the note in the textarea
 var activeNote = {};
 
-alert("what is going on?");
 
 // A function for getting all notes from the db
 var getNotes = function() {
