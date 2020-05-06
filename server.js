@@ -10,7 +10,7 @@ require('./routes/htmlroutes.js')(app);
 
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-// app.use(express.json());
+app.use(express.json());
 
 
 app.listen(PORT, function() {
