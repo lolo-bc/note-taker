@@ -12,7 +12,6 @@ module.exports = function (app) {
     //   app.use(function (req, res) {
     //     res.sendFile(path.join(__dirname + '/../Develop/public/index.html'));
     //   }); 
-    app.use(express.static(path.join(__dirname,"public")));
 
       
 } 
