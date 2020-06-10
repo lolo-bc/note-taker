@@ -17,12 +17,17 @@ var getNotes = function() {
   });
 };
 
+
 // A function for saving a note to the db
 var saveNote = function(note) {
+  console.log(note);
   return $.ajax({
     url: "/api/notes",
-    data: note,
-    method: "POST"
+    // data: note,
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    type: "POST",
+    data: JSON.stringify(note)
   });
 };
 
@@ -37,7 +42,6 @@ var deleteNote = function(id) {
 // If there is an activeNote, display it, otherwise render empty inputs
 var renderActiveNote = function() {
   $saveNoteBtn.hide();
-
   if (activeNote.id) {
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
@@ -53,11 +57,13 @@ var renderActiveNote = function() {
 
 // Get the note data from the inputs, save it to the db and update the view
 var handleNoteSave = function() {
+
   var newNote = {
     title: $noteTitle.val(),
-    text: $noteText.val()
-  };
+    text: $noteText.val(),
 
+  };
+  console.log(newNote);
   saveNote(newNote).then(function(data) {
     getAndRenderNotes();
     renderActiveNote();
@@ -65,13 +71,15 @@ var handleNoteSave = function() {
 };
 
 // Delete the clicked note
-var handleNoteDelete = function(event) {
+var handleNoteDelete = async function(event) {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
 
   var note = $(this)
     .parent(".list-group-item")
     .data();
+
+  console.log(note);
 
   if (activeNote.id === note.id) {
     activeNote = {};
@@ -81,6 +89,7 @@ var handleNoteDelete = function(event) {
     getAndRenderNotes();
     renderActiveNote();
   });
+
 };
 
 // Sets the activeNote and displays it
@@ -131,6 +140,8 @@ var renderNoteList = function(notes) {
 var getAndRenderNotes = function() {
   return getNotes().then(function(data) {
     renderNoteList(data);
+    console.log(data.length+ "lenght?");
+
   });
 };
 
